@@ -119,8 +119,7 @@ public class AutoDAO {
             
             while(rs.next()){                
                 AutoDTO objCoche = new AutoDTO();                                
-                                
-                objCoche.setId(rs.getInt("idCoches"));
+                                                
                 objCoche.setMarca(rs.getString("marca"));
                 objCoche.setModelo(rs.getString("modelo"));
                 objCoche.setPerComercial(rs.getString("per_comercial"));
@@ -167,8 +166,8 @@ public class AutoDAO {
             
             while(rs.next()){                
                 AutoDTO objCoche = new AutoDTO();                                
-                
-                objCoche.setId(rs.getInt("idCoches"));
+                                
+                objCoche.setId(rs.getInt("id"));
                 objCoche.setMarca(rs.getString("marca"));
                 objCoche.setModelo(rs.getString("modelo"));
                 objCoche.setPerComercial(rs.getString("per_comercial"));

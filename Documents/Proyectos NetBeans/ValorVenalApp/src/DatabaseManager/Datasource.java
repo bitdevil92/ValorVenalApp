@@ -24,7 +24,7 @@ public class Datasource {
     
     public static final String TABLE_NAME = "coches";
     public static final String DB_NAME = "ValorAutos";
-    private String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" (marca VARCHAR(45),"
+    private String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" (id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), marca VARCHAR(45),"
                                                     + "modelo VARCHAR(100), per_comercial VARCHAR(45),"
                                                     + "cilindrada INT, n_cilindros INT,"
                                                     + "combustible VARCHAR(100), potencia_kw VARCHAR(45),"

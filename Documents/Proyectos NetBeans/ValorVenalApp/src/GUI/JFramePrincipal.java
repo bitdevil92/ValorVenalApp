@@ -9,6 +9,8 @@ import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import DatabaseManager.AutoDAO;
 import DatabaseManager.AutoDTO;
+import DatabaseManager.CarDatabaseLoader;
+import java.io.File;
 
 /**
  *
@@ -21,7 +23,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     /**
      * Creates new form JFramePrincipal
      */
-    public JFramePrincipal() {
+    public JFramePrincipal() {        
         initComponents();
         reiniciarTabla();
         rellenarTabla();
