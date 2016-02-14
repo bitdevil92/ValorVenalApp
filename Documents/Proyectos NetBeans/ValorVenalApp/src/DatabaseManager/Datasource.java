@@ -19,19 +19,27 @@ import java.util.logging.Logger;
  */
 public class Datasource {
     
-     private Connection con = null;
+    private Connection con = null;
 
-    public Datasource() throws ClassNotFoundException, SQLException {
+    
+    public static final String TABLE_NAME = "coches";
+    public static final String DB_NAME = "ValorAutos";
+    private String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" (marca VARCHAR(45),"
+                                                    + "modelo VARCHAR(100), per_comercial VARCHAR(45),"
+                                                    + "cilindrada INT, n_cilindros INT,"
+                                                    + "combustible VARCHAR(100), potencia_kw VARCHAR(45),"
+                                                    + "potencia_fiscal DOUBLE, emisiones VARCHAR(45),"
+                                                    + "potencia_cv DOUBLE, valor INT)";
+    
+    public Datasource() throws ClassNotFoundException, SQLException {                        
+        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         
-        String host = "localhost";
-        String user = "root";
-        String pass = "";
-        String db_name = "cochesdatabase";
+        String db_url = "jdbc:derby:.\\DB\\"+DB_NAME+".DB;create=true;";
+        con = DriverManager.getConnection(db_url);  
         
-        Class.forName("com.mysql.jdbc.Driver");
+        System.out.println("CONEXION ESTABLECIDA con: "+DB_NAME);
         
-        String db_url = "jdbc:mysql://"+host+":3306/"+db_name;
-        con = DriverManager.getConnection(db_url,user,pass);        
+        createTable();
     }
     
     public PreparedStatement getStatement (String sql) throws SQLException{
@@ -77,5 +85,30 @@ public class Datasource {
         }
     }
     
+    public boolean createTable(){
+        boolean isCreated = false;
+        String QUERY_COMPROBATION = "SELECT * FROM coches";
+        
+        try {
+            con.prepareStatement(QUERY_COMPROBATION).executeQuery();           
+            isCreated = true;
+            System.out.println("COMPROBACION TABLA: TRUE");
+        } catch (SQLException ex) {            
+            System.out.println("COMPROBACION TABLA: FALSE");
+        }
+                
+        if(!isCreated){
+            try {                
+                con.prepareStatement(CREATE_TABLE).executeUpdate();
+                
+                isCreated = true;
+                System.out.println("TABLA "+TABLE_NAME+" CREADA");
+            } catch (SQLException ex) {
+                Logger.getLogger(Datasource.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("ERROR CREANDO TABLA");
+            }            
+        }        
+        return isCreated;
+    }
     
 }

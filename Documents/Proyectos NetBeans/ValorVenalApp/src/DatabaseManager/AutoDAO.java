@@ -20,14 +20,12 @@ import java.util.logging.Logger;
  */
 public class AutoDAO {
     
-    private static final String QUERY = "SELECT idCoches, marca, modelo, per_comercial, "
-            + "cilindrada, n_cilindros, combustible, potencia_kw, potencia_fiscal, emisiones, "
-            + "potencia_cv, valor FROM COCHES";
-    private static final String INSERT = "INSERT INTO COCHES (marca, modelo, per_comercial, "
+    private static final String QUERY = "SELECT * FROM "+Datasource.TABLE_NAME;
+    private static final String INSERT = "INSERT INTO "+Datasource.TABLE_NAME+" (marca, modelo, per_comercial, "
             + "cilindrada, n_cilindros, combustible, potencia_kw, potencia_fiscal, emisiones, "
             + "potencia_cv, valor)"
             + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";    
-    private static final String QUERY_BUSQUEDA = "SELECT * FROM COCHES WHERE marca LIKE CONCAT(IFNULL(?,marca),'%') AND modelo LIKE";
+    private static final String QUERY_BUSQUEDA = "SELECT * FROM "+Datasource.TABLE_NAME+" WHERE marca LIKE CONCAT(IFNULL(?,marca),'%') AND modelo LIKE";
     
     
     public static void insertAutomovil(AutoDTO auto){

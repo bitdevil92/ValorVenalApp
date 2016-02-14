@@ -6,7 +6,6 @@
 package GUI;
 
 import java.util.HashMap;
-import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 import DatabaseManager.AutoDAO;
 import DatabaseManager.AutoDTO;
