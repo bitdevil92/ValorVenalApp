@@ -5,6 +5,7 @@
  */
 package DatabaseManager;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -101,14 +102,14 @@ public class Datasource {
             try {                
                 con.prepareStatement(CREATE_TABLE).executeUpdate();
                 
-                isCreated = true;
-                System.out.println("TABLA "+TABLE_NAME+" CREADA");
+                isCreated = true;                
+                System.out.println("TABLA "+TABLE_NAME+" CREADA");                                                
             } catch (SQLException ex) {
                 Logger.getLogger(Datasource.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("ERROR CREANDO TABLA");
             }            
         }        
         return isCreated;
-    }
+    }       
     
 }

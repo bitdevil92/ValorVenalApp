@@ -9,8 +9,6 @@ import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import DatabaseManager.AutoDAO;
 import DatabaseManager.AutoDTO;
-import DatabaseManager.CarDatabaseLoader;
-import java.io.File;
 
 /**
  *
@@ -23,12 +21,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     /**
      * Creates new form JFramePrincipal
      */
-    public JFramePrincipal() {           
-        if(isEmptyDB()){
-            String filePath = "src/CsvDecrypter/ListaCochesCompletaTurismos";
-            CarDatabaseLoader.loadCarsInToDatabaseBuffer(CsvDecrypter.CsvDecrypter.getCsvDecryptedList(new File(filePath)));
-        }
-        
+    public JFramePrincipal() {                          
         initComponents();
         reiniciarTabla();
         rellenarTabla();
