@@ -5,7 +5,6 @@
  */
 package DatabaseManager;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -25,22 +24,14 @@ public class Datasource {
     
     public static final String TABLE_NAME = "coches";
     public static final String DB_NAME = "ValorAutos";
-    private String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" (id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), marca VARCHAR(45),"
-                                                    + "modelo VARCHAR(100), per_comercial VARCHAR(45),"
-                                                    + "cilindrada INT, n_cilindros INT,"
-                                                    + "combustible VARCHAR(100), potencia_kw VARCHAR(45),"
-                                                    + "potencia_fiscal DOUBLE, emisiones VARCHAR(45),"
-                                                    + "potencia_cv DOUBLE, valor INT)";
     
     public Datasource() throws ClassNotFoundException, SQLException {                        
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         
-        String db_url = "jdbc:derby:.\\DB\\"+DB_NAME+".DB;create=true;";
+        String db_url = "jdbc:derby:.\\CarDB\\"+DB_NAME+".DB;";
         con = DriverManager.getConnection(db_url);  
         
-        System.out.println("CONEXION ESTABLECIDA con: "+DB_NAME);
-        
-        createTable();
+        System.out.println("CONEXION ESTABLECIDA con: "+DB_NAME);                
     }
     
     public PreparedStatement getStatement (String sql) throws SQLException{
@@ -84,32 +75,6 @@ public class Datasource {
             Logger.getLogger(Datasource.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error closeConnection");
         }
-    }
-    
-    public boolean createTable(){
-        boolean isCreated = false;
-        String QUERY_COMPROBATION = "SELECT * FROM coches";
-        
-        try {
-            con.prepareStatement(QUERY_COMPROBATION).executeQuery();           
-            isCreated = true;
-            System.out.println("COMPROBACION TABLA: TRUE");
-        } catch (SQLException ex) {            
-            System.out.println("COMPROBACION TABLA: FALSE");
-        }
-                
-        if(!isCreated){
-            try {                
-                con.prepareStatement(CREATE_TABLE).executeUpdate();
-                
-                isCreated = true;                
-                System.out.println("TABLA "+TABLE_NAME+" CREADA");                                                
-            } catch (SQLException ex) {
-                Logger.getLogger(Datasource.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("ERROR CREANDO TABLA");
-            }            
-        }        
-        return isCreated;
-    }       
+    }    
     
 }
