@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -50,7 +52,7 @@ public class AutoDAO {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            System.out.println("ERROR CONEXION DATABASE");
+            System.out.println("ERROR CONEXION DATABASE");            
             Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
@@ -138,6 +140,8 @@ public class AutoDAO {
             Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             System.out.println("ERROR CONEXION DATABASE");
+            JOptionPane.showMessageDialog(null, "ERROR CONECTANDO DB");
+            System.exit(0);
             Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
@@ -185,6 +189,8 @@ public class AutoDAO {
             Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             System.out.println("ERROR CONEXION DATABASE");
+            JOptionPane.showMessageDialog(null, "ERROR CONECTANDO DB");
+            System.exit(0);
             Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
