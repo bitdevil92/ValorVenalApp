@@ -25,8 +25,7 @@ public class AutoDAO {
             + "cilindrada, n_cilindros, combustible, potencia_kw, potencia_fiscal, emisiones, "
             + "potencia_cv, valor)"
             + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";    
-    private static final String QUERY_BUSQUEDA = "SELECT * FROM "+Datasource.TABLE_NAME+" WHERE marca LIKE CONCAT(IFNULL(?,marca),'%') AND modelo LIKE";
-    
+    private static final String QUERY_BUSQUEDA = "SELECT * FROM "+Datasource.TABLE_NAME+" WHERE UPPER(marca) LIKE ";            
     
     public static void insertAutomovil(AutoDTO auto){
         Datasource data = null;
@@ -98,7 +97,7 @@ public class AutoDAO {
             }
             data.closeConnection();
         }        
-    }
+    }    
    
     public static HashMap<Integer,AutoDTO> searchAuto(AutoDTO auto){
         HashMap<Integer,AutoDTO> hashCoches = new HashMap<Integer, AutoDTO>();
@@ -110,16 +109,16 @@ public class AutoDAO {
             data = new Datasource();            
             
             ArrayList<String> wordList = getWordList(auto.getModelo());            
-            st = data.getStatement(QUERY_BUSQUEDA+getModelParametersString(wordList));
-            st.setString(1, auto.getMarca());                                           
-            
-            System.out.println(st);
+            st = data.getStatement(QUERY_BUSQUEDA+getMarcaParametersString(auto.getMarca())+getModelParametersString(wordList));           
+                                                
+            System.out.println(QUERY_BUSQUEDA+getMarcaParametersString(auto.getMarca())+getModelParametersString(wordList));                        
             
             rs = data.executeSelect(st);            
             
             while(rs.next()){                
                 AutoDTO objCoche = new AutoDTO();                                
-                                                
+                                        
+                objCoche.setId(rs.getInt("id"));
                 objCoche.setMarca(rs.getString("marca"));
                 objCoche.setModelo(rs.getString("modelo"));
                 objCoche.setPerComercial(rs.getString("per_comercial"));
@@ -211,20 +210,29 @@ public class AutoDAO {
         return wordList;
     }
     
+    private static String getMarcaParametersString(String marca){
+        String sMarcaParameter = marca;
+        if(sMarcaParameter == null){
+            sMarcaParameter = "UPPER(marca)";
+        }else{
+            sMarcaParameter = "'"+sMarcaParameter.toUpperCase()+"%'";
+        }
+        
+        return sMarcaParameter+ " AND UPPER(modelo) LIKE ";
+    }
+    
     private static String getModelParametersString(ArrayList<String> list){
         String sParameters = "";
         
         if(list.size()== 0){
-            sParameters = " modelo";            
+            sParameters = " UPPER(modelo)";            
         }else{            
-            sParameters = " '%"+list.get(0)+"%'";  
+            sParameters = " '%"+list.get(0).toUpperCase()+"%'";  
         }
         
         for(int i=0; i< list.size()-1; i++){
-            sParameters = sParameters+" AND modelo LIKE '%"+list.get(i+1)+"%'";
-        }                 
-        
-        System.out.println(sParameters);
+            sParameters = sParameters+" AND UPPER(modelo) LIKE '%"+list.get(i+1).toUpperCase()+"%'";
+        }                                 
         return sParameters;        
     }
     

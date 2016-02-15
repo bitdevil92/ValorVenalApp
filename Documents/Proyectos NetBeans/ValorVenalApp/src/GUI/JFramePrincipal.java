@@ -23,7 +23,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
     /**
      * Creates new form JFramePrincipal
      */
-    public JFramePrincipal() {        
+    public JFramePrincipal() {           
+        if(isEmptyDB()){
+            String filePath = "src/CsvDecrypter/ListaCochesCompletaTurismos";
+            CarDatabaseLoader.loadCarsInToDatabaseBuffer(CsvDecrypter.CsvDecrypter.getCsvDecryptedList(new File(filePath)));
+        }
+        
         initComponents();
         reiniciarTabla();
         rellenarTabla();
@@ -60,6 +65,16 @@ public class JFramePrincipal extends javax.swing.JFrame {
             count++;
             modeloTabla.addRow(fila);
         }           
+    }
+    
+    public boolean isEmptyDB(){
+        if(AutoDAO.consultarTodos().size() == 0){
+            System.out.println("VACIA");
+            return true;
+        }else{
+            System.out.println("LLENA");
+            return false;
+        }                
     }
     
     public void realizarBusqueda(HashMap<Integer, AutoDTO> mapa){
