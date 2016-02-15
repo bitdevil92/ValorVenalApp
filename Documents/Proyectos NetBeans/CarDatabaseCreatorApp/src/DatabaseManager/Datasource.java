@@ -5,7 +5,6 @@
  */
 package DatabaseManager;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -35,7 +34,7 @@ public class Datasource {
     public Datasource() throws ClassNotFoundException, SQLException {                        
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         
-        String db_url = "jdbc:derby:.\\DB\\"+DB_NAME+".DB;create=true;";
+        String db_url = "jdbc:derby:.\\CarDB\\"+DB_NAME+".DB;create=true;";
         con = DriverManager.getConnection(db_url);  
         
         System.out.println("CONEXION ESTABLECIDA con: "+DB_NAME);
