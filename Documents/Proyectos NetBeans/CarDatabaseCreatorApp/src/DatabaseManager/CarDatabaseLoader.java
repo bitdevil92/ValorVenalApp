@@ -27,33 +27,35 @@ public class CarDatabaseLoader {
             
             auto.setMarca(specList.get(0));
             auto.setModelo(specList.get(1));
-            auto.setPerComercial(specList.get(2));
             
-            if(!specList.get(3).equals("")){                  
-                auto.setCilindrada(Integer.parseInt(specList.get(3)));
+            auto.setIniPerComercial(Integer.parseInt(specList.get(2)));
+            auto.setFinPerComercial(Integer.parseInt(specList.get(3)));
+            
+            if(!specList.get(4).equals("")){                  
+                auto.setCilindrada(Integer.parseInt(specList.get(4)));
             }else{
                 auto.setCilindrada(0);
             }
             
-            if(!specList.get(4).equals("")){                  
-                auto.setNumCilindros(Integer.parseInt(specList.get(4)));
+            if(!specList.get(5).equals("")){                  
+                auto.setNumCilindros(Integer.parseInt(specList.get(5)));
             }else{
                 auto.setNumCilindros(0);
             }            
             
-            auto.setCombustible(specList.get(5));
-            auto.setPotenciaKW(specList.get(6));
-            auto.setPotenciaFiscal(Double.parseDouble(specList.get(7)));
+            auto.setCombustible(specList.get(6));
+            auto.setPotenciaKW(specList.get(7));
+            auto.setPotenciaFiscal(Double.parseDouble(specList.get(8)));
                          
-            auto.setEmisiones(specList.get(8));                
+            auto.setEmisiones(specList.get(9));                
             
-            if(!specList.get(9).equals("")){                  
-                auto.setPotenciaCv(Double.parseDouble(specList.get(9))); 
+            if(!specList.get(10).equals("")){                  
+                auto.setPotenciaCv(Double.parseDouble(specList.get(10))); 
             }else{
                 auto.setPotenciaCv(0);
             }     
                                 
-            auto.setValor(Integer.parseInt(specList.get(10)));
+            auto.setValor(Integer.parseInt(specList.get(11)));
                         
             System.out.println(count);
             loadCarInToDatabase(auto);
@@ -71,27 +73,44 @@ public class CarDatabaseLoader {
             
             auto.setMarca(specList.get(0));
             auto.setModelo(specList.get(1));
-            auto.setPerComercial(specList.get(2));            
-            if(!specList.get(3).equals("")){                  
-                auto.setCilindrada(Integer.parseInt(specList.get(3)));
+            
+            if(specList.get(2) != null){
+                auto.setIniPerComercial(Integer.parseInt(specList.get(2)));                
+            }else{
+                auto.setIniPerComercial(Integer.parseInt("0"));                
+            }
+            
+            if(specList.get(3) != null){
+                auto.setFinPerComercial(Integer.parseInt(specList.get(3)));                
+            }else{
+                auto.setFinPerComercial(Integer.parseInt("1"));                
+            }
+            
+            if(!specList.get(4).equals("")){                  
+                auto.setCilindrada(Integer.parseInt(specList.get(4)));
             }else{
                 auto.setCilindrada(0);
-            }            
-            if(!specList.get(4).equals("")){                  
-                auto.setNumCilindros(Integer.parseInt(specList.get(4)));
+            }
+            
+            if(!specList.get(5).equals("")){                  
+                auto.setNumCilindros(Integer.parseInt(specList.get(5)));
             }else{
                 auto.setNumCilindros(0);
-            }                        
-            auto.setCombustible(specList.get(5));
-            auto.setPotenciaKW(specList.get(6));
-            auto.setPotenciaFiscal(Double.parseDouble(specList.get(7)));                         
-            auto.setEmisiones(specList.get(8));                            
-            if(!specList.get(9).equals("")){                  
-                auto.setPotenciaCv(Double.parseDouble(specList.get(9))); 
+            }            
+            
+            auto.setCombustible(specList.get(6));
+            auto.setPotenciaKW(specList.get(7));
+            auto.setPotenciaFiscal(Double.parseDouble(specList.get(8)));
+                         
+            auto.setEmisiones(specList.get(9));                
+            
+            if(!specList.get(10).equals("")){                  
+                auto.setPotenciaCv(Double.parseDouble(specList.get(10))); 
             }else{
                 auto.setPotenciaCv(0);
-            }                                     
-            auto.setValor(Integer.parseInt(specList.get(10)));
+            }     
+                                
+            auto.setValor(Integer.parseInt(specList.get(11)));
             
             bufferAuto.add(auto);
             

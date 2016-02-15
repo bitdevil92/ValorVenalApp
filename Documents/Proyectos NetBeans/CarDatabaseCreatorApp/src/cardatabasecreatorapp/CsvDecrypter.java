@@ -58,7 +58,7 @@ public class CsvDecrypter {
     }
       
     
-    private static ArrayList<Object> csvLineDecrypter(String csvLine) {
+    public static ArrayList<Object> csvLineDecrypter(String csvLine) {
         ArrayList<String> tokenList = new ArrayList();
         ArrayList decryptedList = new ArrayList();
 
@@ -69,7 +69,10 @@ public class CsvDecrypter {
                                         
         decryptedList.add(tokenList.get(0).replace("\"", "")); //MARCA
         decryptedList.add(tokenList.get(1).replace("\"", "")); //MODELO
-        decryptedList.add(tokenList.get(2).replace("\"", "")); //PER_COMERCIAL
+        
+        decryptedList.add(getPerComercial(tokenList.get(2))[0]); //PER_COMERCIAL        
+        decryptedList.add(getPerComercial(tokenList.get(2))[1]); //PER_COMERCIAL        
+
         decryptedList.add(tokenList.get(3).replace("\"", "")); //CILINDRADA        
         decryptedList.add(tokenList.get(4).replace("\"", "")); //N_CILINDROS
         decryptedList.add(tokenList.get(5).replace("\"", "")); //COMBUSTIBLE
@@ -84,17 +87,14 @@ public class CsvDecrypter {
 
     public static ArrayList<ArrayList> getCsvDecryptedList(File fichero) {
         ArrayList decryptedList = new ArrayList();
-
-        csvCleaner(fichero);
-        
+        csvCleaner(fichero);                
         
         try {
             BufferedReader br = new BufferedReader(new FileReader(fichero));
                         
             String line = br.readLine();
             while (line != null) {                  
-                decryptedList.add(csvLineDecrypter(line));                
-                
+                decryptedList.add(csvLineDecrypter(line));                                
                 line = br.readLine();                
             }
 
@@ -105,6 +105,23 @@ public class CsvDecrypter {
         }
 
         return decryptedList;
+    }
+    
+    private static String[] getPerComercial(String s){
+        String[] perComercialArray = new String[2];
+                
+        if(s.length() > 4 && !s.contains("\"")){
+            perComercialArray[0] = s.substring(0,4);            
+            
+            if(s.length() > 5){
+                perComercialArray[1] = s.substring(5,9);                
+            }else{
+                perComercialArray[1] = null;
+            }
+        }else{
+            perComercialArray[0] = null;
+        }
+        return perComercialArray;
     }
     
     

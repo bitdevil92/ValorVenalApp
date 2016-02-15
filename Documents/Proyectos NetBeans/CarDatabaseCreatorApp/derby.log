@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Mon Feb 15 17:06:16 CET 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0152-e5ae-b022-000005ef2760 
+Tue Feb 16 00:47:50 CET 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0152-e755-43f6-000007006ef0 
 on database directory D:\Users\Tobi\Documents\Proyectos NetBeans\CarDatabaseCreatorApp\CarDB\ValorAutos.DB with class loader sun.misc.Launcher$AppClassLoader@15db9742 
 Loaded from file:/D:/Users/Tobi/Documents/Proyectos%20NetBeans/CarDatabaseCreatorApp/src/Libraries/derby.jar
 java.vendor=Oracle Corporation

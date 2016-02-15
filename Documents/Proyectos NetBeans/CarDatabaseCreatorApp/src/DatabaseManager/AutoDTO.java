@@ -13,8 +13,9 @@ public class AutoDTO {
     
     private int id;
     private String marca;
-    private String modelo;
-    private String perComercial;   
+    private String modelo;    
+    private int iniPerComercial;
+    private int finPerComercial;
     private int cilindrada;
     private int numCilindros;
     private String combustible;
@@ -27,13 +28,12 @@ public class AutoDTO {
     public AutoDTO() {
     }
 
-    public AutoDTO(String marca, String modelo, String perComercial, int cilindrada, 
-            int numCilindros, String combustible, String potenciaKW, double potenciaFiscal, 
-            double potenciaCv, String emisiones, int valor) {
-        this.id = 0;
+    public AutoDTO(int id, String marca, String modelo, int iniPerComercial, int finPerComercial, int cilindrada, int numCilindros, String combustible, String potenciaKW, double potenciaFiscal, double potenciaCv, String emisiones, int valor) {
+        this.id = id;
         this.marca = marca;
         this.modelo = modelo;
-        this.perComercial = perComercial;
+        this.iniPerComercial = iniPerComercial;
+        this.finPerComercial = finPerComercial;
         this.cilindrada = cilindrada;
         this.numCilindros = numCilindros;
         this.combustible = combustible;
@@ -43,6 +43,8 @@ public class AutoDTO {
         this.emisiones = emisiones;
         this.valor = valor;
     }
+
+  
 
     public int getId() {
         return id;
@@ -68,12 +70,20 @@ public class AutoDTO {
         this.modelo = modelo;
     }
 
-    public String getPerComercial() {
-        return perComercial;
+    public int getIniPerComercial() {
+        return iniPerComercial;
     }
 
-    public void setPerComercial(String perComercial) {
-        this.perComercial = perComercial;
+    public void setIniPerComercial(int iniPerComercial) {
+        this.iniPerComercial = iniPerComercial;
+    }
+
+    public int getFinPerComercial() {
+        return finPerComercial;
+    }
+
+    public void setFinPerComercial(int finPerComercial) {
+        this.finPerComercial = finPerComercial;
     }
 
     public int getCilindrada() {
@@ -140,14 +150,6 @@ public class AutoDTO {
         this.valor = valor;
     }
 
-    @Override
-    public String toString() {
-        return "AutomovilDTO{" + "id=" + id + ", marca=" + marca + ", modelo=" + modelo + 
-                ", perComercial=" + perComercial + ", cilindrada=" + cilindrada + 
-                ", numCilindros=" + numCilindros + ", combustible=" + combustible + 
-                ", potenciaKW=" + potenciaKW + ", potenciaFiscal=" + potenciaFiscal + 
-                ", potenciaCv=" + potenciaCv + ", emisiones=" + emisiones + ", valor=" + valor + '}';
-    }
     
     
 }

@@ -5,6 +5,9 @@
  */
 package cardatabasecreatorapp;
 
+import DatabaseManager.CarDatabaseLoader;
+import java.io.File;
+
 /**
  *
  * @author Tobi
@@ -16,6 +19,12 @@ public class CarDatabaseCreatorApp {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        String filePath = "src/cardatabasecreatorapp/ListaCochesCompletaTurismos";
+        CarDatabaseLoader.loadCarsInToDatabaseBuffer(CsvDecrypter.getCsvDecryptedList(new File(filePath)));
+                
+        
+        
     }
     
 }

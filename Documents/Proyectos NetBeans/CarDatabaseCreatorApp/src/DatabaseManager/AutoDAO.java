@@ -21,10 +21,10 @@ import java.util.logging.Logger;
 public class AutoDAO {
     
     private static final String QUERY = "SELECT * FROM "+Datasource.TABLE_NAME;
-    private static final String INSERT = "INSERT INTO "+Datasource.TABLE_NAME+" (marca, modelo, per_comercial, "
+    private static final String INSERT = "INSERT INTO "+Datasource.TABLE_NAME+" (marca, modelo, ini_per_comercial, fin_per_comercial,"
             + "cilindrada, n_cilindros, combustible, potencia_kw, potencia_fiscal, emisiones, "
             + "potencia_cv, valor)"
-            + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";    
+            + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";    
     private static final String QUERY_BUSQUEDA = "SELECT * FROM "+Datasource.TABLE_NAME+" WHERE UPPER(marca) LIKE ";            
     
     public static void insertAutomovil(AutoDTO auto){
@@ -36,15 +36,16 @@ public class AutoDAO {
             st = data.getStatement(INSERT);
             st.setString(1, auto.getMarca());
             st.setString(2, auto.getModelo());
-            st.setString(3, auto.getPerComercial());
-            st.setInt(4, auto.getCilindrada());
-            st.setInt(5, auto.getNumCilindros());
-            st.setString(6, auto.getCombustible());
-            st.setString(7, auto.getPotenciaKW());
-            st.setDouble(8, auto.getPotenciaFiscal());
-            st.setString(9, auto.getEmisiones());
-            st.setDouble(10, auto.getPotenciaCv());
-            st.setInt(11, auto.getValor());
+            st.setInt(3, auto.getIniPerComercial());
+            st.setInt(4, auto.getFinPerComercial());            
+            st.setInt(5, auto.getCilindrada());
+            st.setInt(6, auto.getNumCilindros());
+            st.setString(7, auto.getCombustible());
+            st.setString(8, auto.getPotenciaKW());
+            st.setDouble(9, auto.getPotenciaFiscal());
+            st.setString(10, auto.getEmisiones());
+            st.setDouble(11, auto.getPotenciaCv());
+            st.setInt(12, auto.getValor());
             data.executeUpdate(st);                                    
             
         } catch (ClassNotFoundException ex) {
@@ -72,15 +73,16 @@ public class AutoDAO {
                 st = data.getStatement(INSERT);
                 st.setString(1, auto.getMarca());
                 st.setString(2, auto.getModelo());
-                st.setString(3, auto.getPerComercial());
-                st.setInt(4, auto.getCilindrada());
-                st.setInt(5, auto.getNumCilindros());
-                st.setString(6, auto.getCombustible());
-                st.setString(7, auto.getPotenciaKW());
-                st.setDouble(8, auto.getPotenciaFiscal());
-                st.setString(9, auto.getEmisiones());
-                st.setDouble(10, auto.getPotenciaCv());
-                st.setInt(11, auto.getValor());
+                st.setInt(3, auto.getIniPerComercial());
+                st.setInt(4, auto.getFinPerComercial());            
+                st.setInt(5, auto.getCilindrada());
+                st.setInt(6, auto.getNumCilindros());
+                st.setString(7, auto.getCombustible());
+                st.setString(8, auto.getPotenciaKW());
+                st.setDouble(9, auto.getPotenciaFiscal());
+                st.setString(10, auto.getEmisiones());
+                st.setDouble(11, auto.getPotenciaCv());
+                st.setInt(12, auto.getValor());
                 data.executeUpdate(st);                                                    
             }
             
@@ -121,7 +123,8 @@ public class AutoDAO {
                 objCoche.setId(rs.getInt("id"));
                 objCoche.setMarca(rs.getString("marca"));
                 objCoche.setModelo(rs.getString("modelo"));
-                objCoche.setPerComercial(rs.getString("per_comercial"));
+                objCoche.setIniPerComercial(rs.getInt("ini_per_comercial"));
+                objCoche.setFinPerComercial(rs.getInt("fin_per_comercial"));                
                 objCoche.setCilindrada(rs.getInt("cilindrada"));
                 objCoche.setNumCilindros(rs.getInt("n_cilindros"));
                 objCoche.setCombustible(rs.getString("combustible"));
@@ -169,7 +172,8 @@ public class AutoDAO {
                 objCoche.setId(rs.getInt("id"));
                 objCoche.setMarca(rs.getString("marca"));
                 objCoche.setModelo(rs.getString("modelo"));
-                objCoche.setPerComercial(rs.getString("per_comercial"));
+                objCoche.setIniPerComercial(rs.getInt("ini_per_comercial"));
+                objCoche.setFinPerComercial(rs.getInt("fin_per_comercial"));      
                 objCoche.setCilindrada(rs.getInt("cilindrada"));
                 objCoche.setNumCilindros(rs.getInt("n_cilindros"));
                 objCoche.setCombustible(rs.getString("combustible"));
