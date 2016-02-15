@@ -84,7 +84,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="modeloTabla = new DefaultTableModel();&#xa;&#xa;        modeloTabla.addColumn(&quot;MARCA&quot;);&#xa;        modeloTabla.addColumn(&quot;MODELO&quot;);&#xa;        modeloTabla.addColumn(&quot;PER COMERCIAL&quot;);&#xa;        modeloTabla.addColumn(&quot;CILINDRADA&quot;);&#xa;        modeloTabla.addColumn(&quot;N CILIN&quot;);&#xa;        modeloTabla.addColumn(&quot;COMBUSTIBLE&quot;);&#xa;        modeloTabla.addColumn(&quot;POT KW&quot;);&#xa;        modeloTabla.addColumn(&quot;POT Fiscal&quot;);&#xa;        modeloTabla.addColumn(&quot;POT CV&quot;);&#xa;        modeloTabla.addColumn(&quot;EMISIONES&quot;);&#xa;        modeloTabla.addColumn(&quot;VALOR&quot;);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="modeloTabla = new DefaultTableModel();&#xa;&#xa;        modeloTabla.addColumn(&quot;MARCA&quot;);&#xa;        modeloTabla.addColumn(&quot;MODELO&quot;);&#xa;        modeloTabla.addColumn(&quot;INI PER COMERCIAL&quot;);&#xa;        modeloTabla.addColumn(&quot;FIN PER COMERCIAL&quot;);&#xa;        modeloTabla.addColumn(&quot;CILINDRADA&quot;);&#xa;        modeloTabla.addColumn(&quot;N CILIN&quot;);&#xa;        modeloTabla.addColumn(&quot;COMBUSTIBLE&quot;);&#xa;        modeloTabla.addColumn(&quot;POT KW&quot;);&#xa;        modeloTabla.addColumn(&quot;POT Fiscal&quot;);&#xa;        modeloTabla.addColumn(&quot;POT CV&quot;);&#xa;        modeloTabla.addColumn(&quot;EMISIONES&quot;);&#xa;        modeloTabla.addColumn(&quot;VALOR&quot;);"/>
           </AuxValues>
         </Component>
       </SubComponents>

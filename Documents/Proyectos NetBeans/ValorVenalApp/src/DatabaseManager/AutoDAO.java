@@ -23,84 +23,8 @@ import javax.swing.JOptionPane;
 public class AutoDAO {
     
     private static final String QUERY = "SELECT * FROM "+Datasource.TABLE_NAME;
-    private static final String INSERT = "INSERT INTO "+Datasource.TABLE_NAME+" (marca, modelo, per_comercial, "
-            + "cilindrada, n_cilindros, combustible, potencia_kw, potencia_fiscal, emisiones, "
-            + "potencia_cv, valor)"
-            + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";    
     private static final String QUERY_BUSQUEDA = "SELECT * FROM "+Datasource.TABLE_NAME+" WHERE UPPER(marca) LIKE ";            
-    
-    public static void insertAutomovil(AutoDTO auto){
-        Datasource data = null;
-        PreparedStatement st = null;
-        
-        try {
-            data = new Datasource();
-            st = data.getStatement(INSERT);
-            st.setString(1, auto.getMarca());
-            st.setString(2, auto.getModelo());
-            st.setString(3, auto.getPerComercial());
-            st.setInt(4, auto.getCilindrada());
-            st.setInt(5, auto.getNumCilindros());
-            st.setString(6, auto.getCombustible());
-            st.setString(7, auto.getPotenciaKW());
-            st.setDouble(8, auto.getPotenciaFiscal());
-            st.setString(9, auto.getEmisiones());
-            st.setDouble(10, auto.getPotenciaCv());
-            st.setInt(11, auto.getValor());
-            data.executeUpdate(st);                                    
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            System.out.println("ERROR CONEXION DATABASE");            
-            Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                if(st != null) st.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            data.closeConnection();
-        }                
-    }
-    
-    public static void insertAutomovilBuffer(ArrayList<AutoDTO> bufferAutos){
-        Datasource data = null;
-        PreparedStatement st = null;
-        
-        try {
-            data = new Datasource();
-            for(AutoDTO auto: bufferAutos){
-                st = data.getStatement(INSERT);
-                st.setString(1, auto.getMarca());
-                st.setString(2, auto.getModelo());
-                st.setString(3, auto.getPerComercial());
-                st.setInt(4, auto.getCilindrada());
-                st.setInt(5, auto.getNumCilindros());
-                st.setString(6, auto.getCombustible());
-                st.setString(7, auto.getPotenciaKW());
-                st.setDouble(8, auto.getPotenciaFiscal());
-                st.setString(9, auto.getEmisiones());
-                st.setDouble(10, auto.getPotenciaCv());
-                st.setInt(11, auto.getValor());
-                data.executeUpdate(st);                                                    
-            }
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            System.out.println("ERROR CONEXION DATABASE BUFFER");
-            Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                if(st != null) st.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(AutoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            data.closeConnection();
-        }        
-    }    
-   
+           
     public static HashMap<Integer,AutoDTO> searchAuto(AutoDTO auto){
         HashMap<Integer,AutoDTO> hashCoches = new HashMap<Integer, AutoDTO>();
         ResultSet rs = null;
@@ -123,7 +47,8 @@ public class AutoDAO {
                 objCoche.setId(rs.getInt("id"));
                 objCoche.setMarca(rs.getString("marca"));
                 objCoche.setModelo(rs.getString("modelo"));
-                objCoche.setPerComercial(rs.getString("per_comercial"));
+                objCoche.setIniPerComercial(rs.getInt("ini_per_comercial"));
+                objCoche.setFinPerComercial(rs.getInt("fin_per_comercial"));
                 objCoche.setCilindrada(rs.getInt("cilindrada"));
                 objCoche.setNumCilindros(rs.getInt("n_cilindros"));
                 objCoche.setCombustible(rs.getString("combustible"));
@@ -173,7 +98,8 @@ public class AutoDAO {
                 objCoche.setId(rs.getInt("id"));
                 objCoche.setMarca(rs.getString("marca"));
                 objCoche.setModelo(rs.getString("modelo"));
-                objCoche.setPerComercial(rs.getString("per_comercial"));
+                objCoche.setIniPerComercial(rs.getInt("ini_per_comercial"));
+                objCoche.setFinPerComercial(rs.getInt("fin_per_comercial"));
                 objCoche.setCilindrada(rs.getInt("cilindrada"));
                 objCoche.setNumCilindros(rs.getInt("n_cilindros"));
                 objCoche.setCombustible(rs.getString("combustible"));

@@ -41,18 +41,19 @@ public class JFramePrincipal extends javax.swing.JFrame {
         reiniciarTabla();
         
         for(AutoDTO auto: mapa.values()){
-            Object[] fila = new Object[11];
+            Object[] fila = new Object[12];
             fila[0]=auto.getMarca();
             fila[1]=auto.getModelo();
-            fila[2]=auto.getPerComercial();
-            fila[3]=auto.getCilindrada();
-            fila[4]=auto.getNumCilindros();
-            fila[5]=auto.getCombustible();
-            fila[6]=auto.getPotenciaKW();
-            fila[7]=auto.getPotenciaFiscal();
-            fila[8]=auto.getPotenciaCv();
-            fila[9]=auto.getEmisiones();
-            fila[10]=auto.getValor();
+            fila[2]=auto.getIniPerComercial();
+            fila[3]=auto.getIniPerComercial();
+            fila[4]=auto.getCilindrada();
+            fila[5]=auto.getNumCilindros();
+            fila[6]=auto.getCombustible();
+            fila[7]=auto.getPotenciaKW();
+            fila[8]=auto.getPotenciaFiscal();
+            fila[9]=auto.getPotenciaCv();
+            fila[10]=auto.getEmisiones();
+            fila[11]=auto.getValor();
             
             System.out.println(count);
             count++;
@@ -75,18 +76,19 @@ public class JFramePrincipal extends javax.swing.JFrame {
         reiniciarTabla();
         
         for(AutoDTO auto: mapa.values()){
-            Object[] fila = new Object[11];
+            Object[] fila = new Object[12];
             fila[0]=auto.getMarca();
             fila[1]=auto.getModelo();
-            fila[2]=auto.getPerComercial();
-            fila[3]=auto.getCilindrada();
-            fila[4]=auto.getNumCilindros();
-            fila[5]=auto.getCombustible();
-            fila[6]=auto.getPotenciaKW();
-            fila[7]=auto.getPotenciaFiscal();
-            fila[8]=auto.getPotenciaCv();
-            fila[9]=auto.getEmisiones();
-            fila[10]=auto.getValor();
+            fila[2]=auto.getIniPerComercial();
+            fila[3]=auto.getIniPerComercial();
+            fila[4]=auto.getCilindrada();
+            fila[5]=auto.getNumCilindros();
+            fila[6]=auto.getCombustible();
+            fila[7]=auto.getPotenciaKW();
+            fila[8]=auto.getPotenciaFiscal();
+            fila[9]=auto.getPotenciaCv();
+            fila[10]=auto.getEmisiones();
+            fila[11]=auto.getValor();
             
             System.out.println(count);
             count++;
@@ -117,7 +119,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         modeloTabla.addColumn("MARCA");
         modeloTabla.addColumn("MODELO");
-        modeloTabla.addColumn("PER COMERCIAL");
+        modeloTabla.addColumn("INI PER COMERCIAL");
+        modeloTabla.addColumn("FIN PER COMERCIAL");
         modeloTabla.addColumn("CILINDRADA");
         modeloTabla.addColumn("N CILIN");
         modeloTabla.addColumn("COMBUSTIBLE");
