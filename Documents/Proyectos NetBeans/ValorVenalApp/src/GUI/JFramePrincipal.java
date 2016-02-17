@@ -9,6 +9,10 @@ import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import DatabaseManager.AutoDAO;
 import DatabaseManager.AutoDTO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -16,50 +20,28 @@ import DatabaseManager.AutoDTO;
  */
 public class JFramePrincipal extends javax.swing.JFrame {
     
+    Thread hiloAuxiliar;
+    
     DefaultTableModel modeloTabla;        
+    
+    HashMap <Integer, AutoDTO> carMap;
     
     /**
      * Creates new form JFramePrincipal
      */
     public JFramePrincipal() {                          
         initComponents();
-        reiniciarTabla();
-        rellenarTabla();
+        
+        realizarBusqueda(jtxtMarca.getText(),jtxtModelo.getText());
     }
+    
     
     public void reiniciarTabla(){
         int filas = modeloTabla.getRowCount();
         for(int i = filas-1; i >= 0; i--){
             modeloTabla.removeRow(i);            
         }
-    }
-    
-    public void rellenarTabla(){
-        HashMap<Integer, AutoDTO> mapa = AutoDAO.consultarTodos();
-        int count = 1;
-        
-        reiniciarTabla();
-        
-        for(AutoDTO auto: mapa.values()){
-            Object[] fila = new Object[12];
-            fila[0]=auto.getMarca();
-            fila[1]=auto.getModelo();
-            fila[2]=auto.getIniPerComercial();
-            fila[3]=auto.getIniPerComercial();
-            fila[4]=auto.getCilindrada();
-            fila[5]=auto.getNumCilindros();
-            fila[6]=auto.getCombustible();
-            fila[7]=auto.getPotenciaKW();
-            fila[8]=auto.getPotenciaFiscal();
-            fila[9]=auto.getPotenciaCv();
-            fila[10]=auto.getEmisiones();
-            fila[11]=auto.getValor();
-            
-            System.out.println(count);
-            count++;
-            modeloTabla.addRow(fila);
-        }           
-    }
+    }        
     
     public boolean isEmptyDB(){
         if(AutoDAO.consultarTodos().size() == 0){
@@ -71,11 +53,27 @@ public class JFramePrincipal extends javax.swing.JFrame {
         }                
     }
     
-    public void realizarBusqueda(HashMap<Integer, AutoDTO> mapa){
+    public void realizarBusqueda(String marca, String modelo){
+        AutoDTO autoBuscado = new AutoDTO();
+        String marcaBuscada = null;
+        String modeloBuscado = null;
+        
+        if(!marca.equals(""))marcaBuscada = marca;
+        if(!modelo.equals(""))modeloBuscado = modelo;        
+        
+        autoBuscado.setMarca(marcaBuscada);
+        autoBuscado.setModelo(modeloBuscado); 
+        
+        carMap = AutoDAO.searchAuto(autoBuscado);
+        
+        actualizarTabla();
+    }        
+    
+    public void actualizarTabla(){
         int count = 1;
         reiniciarTabla();
         
-        for(AutoDTO auto: mapa.values()){
+        for(AutoDTO auto: carMap.values()){
             Object[] fila = new Object[12];
             fila[0]=auto.getMarca();
             fila[1]=auto.getModelo();
@@ -93,7 +91,25 @@ public class JFramePrincipal extends javax.swing.JFrame {
             System.out.println(count);
             count++;
             modeloTabla.addRow(fila);
-        }             
+        }       
+    }
+        
+    public void newDataUpdate(){
+        if(hiloAuxiliar != null && hiloAuxiliar.isAlive()){
+            try {
+                hiloAuxiliar.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(JFramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            hiloAuxiliar = new Thread(){
+                @Override
+                public void run() {                    
+                    realizarBusqueda(jtxtMarca.getText(),jtxtModelo.getText());
+                } 
+            };  
+            hiloAuxiliar.start();
+        }
     }
     
     /**
@@ -135,6 +151,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("MARCA");
 
+        jtxtMarca.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jtxtMarcaCaretUpdate(evt);
+            }
+        });
+
         jbtnBuscar.setText("Buscar");
         jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +166,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("MODELO");
+
+        jtxtModelo.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jtxtModeloCaretUpdate(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,21 +216,20 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
-        // TODO add your handling code here:
-        AutoDTO autoBuscado = new AutoDTO();
-        String marcaBuscada = null;
-        String modeloBuscado = null;
+        // TODO add your handling code here:       
         
-        if(!jtxtMarca.getText().isEmpty()) marcaBuscada = jtxtMarca.getText();
-        if(!jtxtModelo.getText().isEmpty()) modeloBuscado = jtxtModelo.getText();
         
-        autoBuscado.setMarca(marcaBuscada);
-        autoBuscado.setModelo(modeloBuscado);                        
-                    
-        System.out.println(autoBuscado.getMarca()+"---"+autoBuscado.getModelo());
-        
-        realizarBusqueda(AutoDAO.searchAuto(autoBuscado));
     }//GEN-LAST:event_jbtnBuscarActionPerformed
+
+    private void jtxtMarcaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jtxtMarcaCaretUpdate
+        // TODO add your handling code here:
+        newDataUpdate();
+    }//GEN-LAST:event_jtxtMarcaCaretUpdate
+
+    private void jtxtModeloCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jtxtModeloCaretUpdate
+        // TODO add your handling code here:
+        newDataUpdate();        
+    }//GEN-LAST:event_jtxtModeloCaretUpdate
 
     /**
      * @param args the command line arguments
